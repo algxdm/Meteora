@@ -2,6 +2,7 @@ package util
 
 import (
 	"os"
+	"os/exec"
 	"syscall"
 )
 
@@ -19,4 +20,9 @@ func Hide(path string) error {
 		return cpathErr
 	}
 	return syscall.SetFileAttributes(cpath, syscall.FILE_ATTRIBUTE_HIDDEN)
+}
+
+func HideWin(path string) error {
+	cmd := exec.Command("attrib", "+H", path, "/S", "/L")
+	return cmd.Run()
 }
