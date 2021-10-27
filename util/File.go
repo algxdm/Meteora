@@ -5,25 +5,15 @@ import (
 	"syscall"
 )
 
-type IFile struct {
-	path       string
-	fileObject os.File
-}
-
-func _IFileExists(ifile IFile) bool {
-	path := ifile.path
-	return _PathExists(path)
-}
 func _PathExists(path string) bool {
 	_, err := os.Lstat(path)
 	return !os.IsNotExist(err)
 }
 
-func Hide(ifile IFile) error {
-	if !_IFileExists(ifile) {
+func Hide(path string) error {
+	if !_PathExists(path) {
 		return nil
 	}
-	path := ifile.path
 	cpath, cpathErr := syscall.UTF16PtrFromString(path)
 	if cpathErr != nil {
 		return cpathErr
