@@ -22,7 +22,7 @@ jobs:
     - name: 构建 Windows 包
       run: go build -ldflags="-s -w -H windowsgui" ./client/main.go
     - name: 重命名构建文件
-      run: rename main main.exe ./main.exe
+      run: mv ./main ./main.exe
 
     - name: 上传 EXE
       uses: actions/upload-artifact@v2.2.4
